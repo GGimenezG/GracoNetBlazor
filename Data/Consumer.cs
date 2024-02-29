@@ -12,7 +12,7 @@ namespace AppBlazor.Data
 {
     public class Consumer
     {
-        private static HttpMethod CreateHttpMethod(methodHttp method)
+        /*private static HttpMethod CreateHttpMethod(methodHttp method)
         {
             switch (method)
             {
@@ -74,6 +74,6 @@ namespace AppBlazor.Data
             return response;
 
 
-        }
+        }*/
     }
 }

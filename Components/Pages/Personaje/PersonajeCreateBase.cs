@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
 using static System.Net.WebRequestMethods;
 using AppBlazor.Data.Models;
+using System.Diagnostics.Contracts;
+using AppBlazor.Data.Services;
 
 namespace AppBlazor.Components
 {
@@ -16,19 +18,23 @@ namespace AppBlazor.Components
         [Inject]
         public NavigationManager Navigation { get; set; }
 
+        [Inject]
+        PersonajeService PersonajeService { get; set; }
+
+
         public Personaje personaje = new();
         public string mensaje = "";
         public async Task Post()
         {
 
-            string apiUrl = "https://localhost:7128/api/Personaje?nombre=Steve&estamina";
-            var data = new StringContent(JsonConvert.SerializeObject(personaje), Encoding.UTF8, "application/json");
+            //if (string.IsNullOrEmpty(personaje.Message))
+            //{
+            //    //no enviamos la información
+            //}
 
-            HttpClient httpClient = new HttpClient();
-            data.Headers.Add("Authorization", "valor");
-            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, data);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
+            var respuesta = await PersonajeService.CrearPersonaje(personaje);
+
+            if (respuesta.Ok)
             {
                 // Process the response data here
                 Navigation.NavigateTo("/personajes");
@@ -36,7 +42,7 @@ namespace AppBlazor.Components
             }
             else
             {
-                mensaje = responseContent;
+                mensaje = respuesta.Message;
             }
 
         }

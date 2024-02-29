@@ -6,15 +6,21 @@
 @inherits PersonajeCreateBase
 
 <p>@mensaje</p>
+<styles>
+    di {
 
+    }
+</styles>
 <EditForm Model="@personaje" OnValidSubmit="Post">
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label>Título: </label>
-        <InputNumber @bind-Value="personaje.id" />
+        <InputNumber class="clasequequiero from-control" @bind-Value="personaje.id" />
     </div>
     <div class="form-group">
         <label>Nombre</label>
         <InputText @bind-Value="personaje.nombre" />
+        <ValidationMessage For="@(() => personaje.nombre)" />
     </div>
     <div class="form-group">
         <label>Tipo: </label>
@@ -35,6 +41,8 @@
     <div class="form-group">
         <label>resistencia: </label>
         <InputNumber @bind-Value="personaje.resistencia" />
+        <ValidationMessage For="@(() => personaje.resistencia)" />
+
     </div>
     <div class="form-group">
         <label>defensa: </label>
@@ -42,10 +50,11 @@
     </div>
     <div class="form-group">
         <label>experiencia: </label>
-        <InputNumber @bind-Value="personaje.experiencia" />
+        <InputNumber class="m-2"  @bind-Value="personaje.experiencia" />
     </div>
     <div class="form-group">
         <label>nivel: </label>
+        <InputNumber @bind-Value="personaje.nivel" />
         <InputNumber @bind-Value="personaje.nivel" />
     </div>
     <div class="form-group">
@@ -61,6 +70,8 @@
     <div class="form-group">
         <input type="submit" class="btn btn-success" value="Agregar" />
     </div>
+    <ValidationSummary />
+
 </EditForm>
 
 <p>@personaje.nombre</p>  

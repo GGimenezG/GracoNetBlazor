@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace AppBlazor.Data.Models
 {
-    public class Response
+    public class Response<TEntity>
     {
         public string? StatusCode { get; set; }
-        public object? Data { get; set; }
+        public bool Ok { get; set; }
+        public string? Message { get; set; }
+        public TEntity? Data { get; set; }
+
+
     }
 }
