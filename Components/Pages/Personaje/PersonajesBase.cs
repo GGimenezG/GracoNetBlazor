@@ -32,5 +32,14 @@ namespace AppBlazor.Components
         public void Create(){
             Navigation.NavigateTo("/personaje/create");
         }
+
+        public async Task GetAll()
+        {
+            var response = await PersonajeService.GetAll();
+
+            lstPersonaje = response.Data;
+
+            //return Task.CompletedTask;
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿@page "/tipo-personaje"
+@rendermode InteractiveServer
+@inherits TipoPersonaje
+
+
+
+<EditForm Model="@tipoPersonaje" OnValidSubmit="Post">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Id: </label>
+        <InputNumber class="from-control" @bind-Value="tipoPersonaje.id" disabled />
+    </div>
+    <div class="form-group">
+        <label>Nombre:</label>
+        <InputText class="from-control" @bind-Value="tipoPersonaje.nombre" />
+        <ValidationMessage For="@(() => tipoPersonaje.nombre)" />
+    </div>
+   
+    <ValidationSummary />
+
+</EditForm>
+

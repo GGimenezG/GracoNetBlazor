@@ -1,7 +1,23 @@
 @page "/datos-perfil/{info:int}"
-<h1>Hola mundo desde @info </h1>
+@inject StateContainer stateContainer
+@implements IDisposable
+
+<Rojo></Rojo>
+<Normal></Normal>
+
+<h1 class="@stateContainer.SelectedCssClass">Hola mundo desde @info </h1>
 
 @code {
     [Parameter]
     public int info {get; set;}
+
+    protected override void OnInitialized()
+    {
+        stateContainer.CambiarColor += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        stateContainer.CambiarColor -= StateHasChanged;
+    }
 }

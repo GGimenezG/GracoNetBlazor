@@ -10,6 +10,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<PersonajeService>();
+builder.Services.AddSingleton<StateContainer>();
 
 var app = builder.Build();
 

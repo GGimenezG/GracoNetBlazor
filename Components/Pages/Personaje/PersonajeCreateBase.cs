@@ -21,6 +21,9 @@ namespace AppBlazor.Components
         [Inject]
         PersonajeService PersonajeService { get; set; }
 
+        [Parameter]
+        public EventCallback ActualizarLista { get; set; }
+
 
         public Personaje personaje = new();
         public string mensaje = "";
@@ -37,7 +40,8 @@ namespace AppBlazor.Components
             if (respuesta.Ok)
             {
                 // Process the response data here
-                Navigation.NavigateTo("/personajes");
+                //Navigation.NavigateTo("/personajes");
+                await ActualizarLista.InvokeAsync();
 
             }
             else

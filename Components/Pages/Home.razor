@@ -1,17 +1,47 @@
 ﻿
 @page "/"
 @rendermode InteractiveServer
+@using AppBlazor.Components.Pages.Counter
+
 
 <PageTitle>Home</PageTitle>
 
 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis quibusdam atque eveniet tempore rerum hic odio explicabo voluptate molestias, eos nostrum veritatis maxime rem optio minus amet expedita magni doloribus!</p>
 
-<DatosPerfil info="1"></DatosPerfil>
+<DatosPerfil info="122"></DatosPerfil>
 
 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae est, odio nihil voluptate accusantium vitae itaque vel unde necessitatibus facilis harum magni ipsum, fugit eveniet eius nostrum praesentium sit repellendus.</p>
 
 
+
+<ul style="border: 1px solid @BorderColor">
+    <li>Last multiple of two = @LastMultipleOfTwo</li>
+    <li>Last multiple of three = @LastMultipleOfThree</li>
+</ul>
+
+<Counter OnMultipleOfThree=@UpdateLastMultipleOfThreeValue
+         OnPepito=@UpdateLastMultipleOfTwoValue></Counter>
+
+
+
+
 @code {
 
-        
+
+    [CascadingParameter]
+    public string BorderColor { get; set; }
+
+    int LastMultipleOfTwo = 0;
+    int LastMultipleOfThree = 0;
+
+    private Task UpdateLastMultipleOfThreeValue(int value)
+    {
+        LastMultipleOfThree = value;
+        return Task.CompletedTask;
+    }
+
+    private void UpdateLastMultipleOfTwoValue(int value)
+    {
+        LastMultipleOfTwo = value;
+    }
 }

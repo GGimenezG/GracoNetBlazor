@@ -8,11 +8,22 @@ namespace AppBlazor.Components
 {
     public class CounterBase : ComponentBase
     {
-            public int currentCount = 5;
+        public int currentCount = 0;
 
-            public void IncrementCount()
-            {
-                currentCount++;
-            }
+        [Parameter]
+        public Action<int> OnPepito { get; set; }
+
+        [Parameter]
+        public EventCallback<int> OnMultipleOfThree { get; set; }
+
+        public async Task IncrementCount()
+        {
+            currentCount++;
+            if (currentCount % 2 == 0)
+                OnPepito?.Invoke(currentCount);
+
+            if (currentCount % 3 == 0)
+                await OnMultipleOfThree.InvokeAsync(currentCount);
+        }
     }
 }
