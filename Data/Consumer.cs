@@ -12,12 +12,12 @@ namespace AppBlazor.Data
 {
     public class Consumer
     {
-        /*private static HttpMethod CreateHttpMethod(methodHttp method)
+        private static HttpMethod CreateHttpMethod(methodHttp method)
         {
             switch (method)
             {
                 case methodHttp.GET:
-                    return HttpMethod.Get;
+                    return HttpMethod.Get; // Traer información, 
                 case methodHttp.POST:
                     return HttpMethod.Post;
                 case methodHttp.PUT:
@@ -29,15 +29,16 @@ namespace AppBlazor.Data
             }
         }
 
-        public static async Task<Response> Execute<T>(string url, methodHttp method, T objectRequest)
+        public static async Task<Response<T>> Execute<T>(string url, methodHttp method, T objectRequest)
         {
-            Response response = new Response();
+            Response<T> response = new Response<T>();
             try
             {
+
                 using (HttpClient client = new HttpClient())
                 {
-    
-                    var myContent = JsonConvert.SerializeObject(objectRequest);
+
+                    var myContent = JsonConvert.SerializeObject((method != methodHttp.GET) ? method != methodHttp.DELETE ? objectRequest : "" : "");
                     var bytecontent = new ByteArrayContent(Encoding.UTF8.GetBytes(myContent));
                     bytecontent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
                     //Si es get o delete no le mandamos content
@@ -45,7 +46,7 @@ namespace AppBlazor.Data
                     {
                         Content = (method != methodHttp.GET) ? method != methodHttp.DELETE ? bytecontent : null : null
                     };
-    
+
                     using (HttpResponseMessage res = await client.SendAsync(request))
                     {
                         using (HttpContent content = res.Content)
@@ -53,7 +54,7 @@ namespace AppBlazor.Data
                             string data = await content.ReadAsStringAsync();
                             if (data != null)
                                 response.Data = JsonConvert.DeserializeObject<T>(data);
-    
+
                             response.StatusCode = res.StatusCode.ToString();
                         }
                     }
@@ -69,11 +70,11 @@ namespace AppBlazor.Data
             catch (Exception ex)
             {
                 response.StatusCode = "AppError";
-                response.Data = ex.Message;
+                response.Message = ex.Message;
             }
             return response;
 
 
-        }*/
+        }
     }
 }

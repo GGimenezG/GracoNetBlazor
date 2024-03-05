@@ -44,24 +44,14 @@ namespace AppBlazor.Data.Services
             Response<List<TipoPersonaje>> response = new Response<List<TipoPersonaje>>();
             try
             {
-                HttpClient httpClient = new HttpClient();
 
-                string apiUrl = "https://localhost:7128/api/TipoPersonaje";
-                HttpResponseMessage httpResponse = await httpClient.GetAsync(apiUrl);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    string responseContent = await httpResponse.Content.ReadAsStringAsync();
-
-                    response.Data = JsonConvert.DeserializeObject<List<TipoPersonaje>>(responseContent);
-                    response.Ok = true;
-                    // Process the response data here
-                }
-                else
-                {
-                    response.Ok = false;
-                    response.Data = new List<TipoPersonaje>();
-                }
+                response = await Consumer
+                    .Execute<List<TipoPersonaje>>(
+                        "https://localhost:7128/api/TipoPersonaje",
+                        methodHttp.GET,
+                        null
+                    );
+                
 
             }
             catch (Exception ex)

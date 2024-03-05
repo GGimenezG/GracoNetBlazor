@@ -13,24 +13,29 @@ namespace AppBlazor.Data.Services
 
             try
             {
-                string apiUrl = "https://localhost:7128/api/Personaje";
-                var data = new StringContent(JsonConvert.SerializeObject(personaje), Encoding.UTF8, "application/json");
 
-                HttpClient httpClient = new HttpClient();
-                //data.Headers.Add("Authorization", "valor");
-                HttpResponseMessage httpResponse = await httpClient.PostAsync(apiUrl, data);
-                string responseContent = await httpResponse.Content.ReadAsStringAsync();
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    response.Ok = true;
-                    response.Message = "Personaje creado con exito";
 
-                }
-                else
-                {
-                    response.Ok = false;
-                    response.Message = responseContent;
-                }
+
+                response.Message = (await Consumer.Execute<Personaje>("https://localhost:7128/api/Personaje", methodHttp.GET, personaje)).Message;
+
+                //string apiUrl = "https://localhost:7128/api/Personaje";
+                //var data = new StringContent(JsonConvert.SerializeObject(personaje), Encoding.UTF8, "application/json");
+
+                //HttpClient httpClient = new HttpClient();
+                ////data.Headers.Add("Authorization", "valor");
+                //HttpResponseMessage httpResponse = await httpClient.PostAsync(apiUrl, data);
+                //string responseContent = await httpResponse.Content.ReadAsStringAsync();
+                //if (httpResponse.IsSuccessStatusCode)
+                //{
+                //    response.Ok = true;
+                //    response.Message = "Personaje creado con exito";
+
+                //}
+                //else
+                //{
+                //    response.Ok = false;
+                //    response.Message = responseContent;
+                //}
                 return response;
             }
             catch(Exception ex)
@@ -46,25 +51,13 @@ namespace AppBlazor.Data.Services
             List<Personaje> lstPersonajes = new List<Personaje>();
             try
             {
-                HttpClient httpClient = new HttpClient();
 
-                string apiUrl = "https://localhost:7128/api/Personaje";
-                HttpResponseMessage httpResponse = await httpClient.GetAsync(apiUrl);
-
-                if (httpResponse.IsSuccessStatusCode)
-                {
-                    string responseContent = await httpResponse.Content.ReadAsStringAsync();
-
-                    lstPersonajes = JsonConvert.DeserializeObject<List<Personaje>>(responseContent);
-                    response.Data = lstPersonajes;
-                    response.Ok = true;
-                    // Process the response data here
-                }
-                else
-                {
-                    response.Ok = false;
-                    response.Data = lstPersonajes;
-                }
+                response = await Consumer
+                    .Execute<List<Personaje>>(
+                        "https://localhost:7128/api/Personaje",
+                        methodHttp.GET,
+                        lstPersonajes
+                    );
 
             }
             catch(Exception ex)
