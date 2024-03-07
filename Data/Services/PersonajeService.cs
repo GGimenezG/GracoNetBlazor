@@ -16,7 +16,13 @@ namespace AppBlazor.Data.Services
 
 
 
-                response.Message = (await Consumer.Execute<Personaje>("https://localhost:7128/api/Personaje", methodHttp.GET, personaje)).Message;
+                response.Message = (await 
+                    Consumer
+                    .Execute<Personaje>(
+                        "https://localhost:7128/api/Personaje",
+                        methodHttp.GET,
+                        personaje)
+                    ).Message;
 
                 //string apiUrl = "https://localhost:7128/api/Personaje";
                 //var data = new StringContent(JsonConvert.SerializeObject(personaje), Encoding.UTF8, "application/json");

@@ -1,18 +1,34 @@
-﻿using AppBlazor.Data.Services;
+﻿using AppBlazor.Data.Models;
+using AppBlazor.Data.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace AppBlazor.Components.Pages.TipoPersonaje
 {
-    public partial class TipoPersonajeCreate : ComponentBase
+    public class TipoPersonajeCreateBase : ComponentBase
     {
         [Parameter]
         public EventCallback OnPersonajeCreado { get; set; }
-        public AppBlazor.Data.Models.TipoPersonaje tipoPersonaje { get; set; }
+
+        [Parameter]
+        public TipoPersonajeDTO tipoPersonaje { get; set; }
+
+        [Parameter]
+        public EventCallback ActualizarLista { get; set; }
+
+        [Inject]
+        TipoPersonajeService TipoPersonajeService { get; set; }
+
+        public TipoPersonajeDTO model = new TipoPersonajeDTO();
+
+        protected override async Task OnInitializedAsync()
+        {
+            model = tipoPersonaje;
+        }
 
 
         public async Task Post()
         {
-            var respuesta = await TipoPersonajeService.CrearTipoPersonaje(tipoPersonaje);
+            var respuesta = await TipoPersonajeService.Create(tipoPersonaje);
 
             if (respuesta.Ok)
             {
@@ -23,7 +39,7 @@ namespace AppBlazor.Components.Pages.TipoPersonaje
             }
             else
             {
-                mensaje = respuesta.Message;
+                //mensaje = respuesta.Message;
             }
         }
 

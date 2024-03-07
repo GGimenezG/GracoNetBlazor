@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AppBlazor.Data.Models
 {
-    public class TipoPersonaje
+    public class TipoPersonajeDTO
     {
         
         public int id {get;set;}

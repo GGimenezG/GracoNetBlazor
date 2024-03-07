@@ -13,7 +13,7 @@ namespace AppBlazor.Data.Models
         [Required(ErrorMessage = "Por favor indica tu nombre")]
         public  string? nombre {get; set;}
         public int tipoId {get;set;}
-        public TipoPersonaje? tipo {get;set;}
+        public TipoPersonajeDTO? tipo {get;set;}
         [Range(1, 100, ErrorMessage = "estamina debe estar entre 1 y 100.")]
         public int estamina {get;set;}
         [Range(1, 100, ErrorMessage = "inteligencia debe estar entre 1 y 100.")]

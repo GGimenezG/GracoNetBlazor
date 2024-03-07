@@ -1,9 +1,7 @@
 ﻿@rendermode InteractiveServer
-@inherits TipoPersonajeCreate
+@inherits TipoPersonajeCreateBase
 
-
-
-<EditForm Model="@tipoPersonaje" OnValidSubmit="Post">
+<EditForm Model="@model" OnValidSubmit="Post">
     <DataAnnotationsValidator />
     <div class="form-group">
         <label>Id: </label>

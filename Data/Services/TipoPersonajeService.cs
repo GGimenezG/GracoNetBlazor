@@ -6,9 +6,9 @@ namespace AppBlazor.Data.Services
 {
     public class TipoPersonajeService
     {
-        public async Task<Response<TipoPersonaje>> Create(TipoPersonaje tipoPersonaje)
+        public async Task<Response<TipoPersonajeDTO>> Create(TipoPersonajeDTO tipoPersonaje)
         {
-            Response<TipoPersonaje> response = new Response<TipoPersonaje>();
+            Response<TipoPersonajeDTO> response = new Response<TipoPersonajeDTO>();
 
             try
             {
@@ -22,7 +22,7 @@ namespace AppBlazor.Data.Services
                 {
                     response.Ok = true;
                     response.Message = "Tipo de Personaje creado con exito";
-                    response.Data = JsonConvert.DeserializeObject<TipoPersonaje>(responseContent);
+                    response.Data = JsonConvert.DeserializeObject<TipoPersonajeDTO>(responseContent);
                 }
                 else
                 {
@@ -39,15 +39,15 @@ namespace AppBlazor.Data.Services
             return response;
         }
 
-        public async Task<Response<List<TipoPersonaje>>> GetAll()
+        public async Task<Response<List<TipoPersonajeDTO>>> GetAll()
         {
-            Response<List<TipoPersonaje>> response = new Response<List<TipoPersonaje>>();
+            Response<List<TipoPersonajeDTO>> response = new Response<List<TipoPersonajeDTO>>();
             try
             {
 
                 response = await Consumer
-                    .Execute<List<TipoPersonaje>>(
-                        "https://localhost:7128/api/TipoPersonaje",
+                    .Execute<List<TipoPersonajeDTO>>(
+                        "http://localhost:5284/api/TipoPersonaje",
                         methodHttp.GET,
                         null
                     );

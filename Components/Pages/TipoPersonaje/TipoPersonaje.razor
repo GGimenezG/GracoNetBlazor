@@ -1,22 +1,56 @@
 ﻿@page "/tipo-personaje"
 @rendermode InteractiveServer
-@inherits TipoPersonaje
+@inherits TipoPersonajeBase
 
 
 
-<EditForm Model="@tipoPersonaje" OnValidSubmit="Post">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>Id: </label>
-        <InputNumber class="from-control" @bind-Value="tipoPersonaje.id" disabled />
+
+<PageTitle>Lista de Tipos de Personajes</PageTitle>
+
+<h1>Lista de Tipos de personajes</h1>
+
+@if (lstTipoPersonaje == null)
+{
+    <p><em>Loading...</em></p>
+}
+else {
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Tipo de personae</th>
+                <th>Nivel</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tipo in lstTipoPersonaje){
+
+
+                <tr>
+                    <td>@tipo.id</td>
+                    <td>@tipo.nombre</td>
+                    <td><button @onclick="(() => Update(tipo))">Modificar</button></td>
+                    <td><button>Eliminar</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    <button @onclick="Create" >Crear</button>
+
+@if(ShowForm){
+    <TipoPersonajeCreate ActualizarLista="@GetAll" tipoPersonaje="@tipoPersonaje"></TipoPersonajeCreate>
+}
+<button class="btn btn-primary" @onclick="() => ModalDialog.Open()">Click me!</button>
+<Modal @ref="@ModalDialog" Title="Hello World">
+    <div class="row">
+        <TipoPersonajeCreate ActualizarLista="@GetAll" tipoPersonaje="@tipoPersonaje"></TipoPersonajeCreate>
+
+        <button class="btn btn-primary" @onclick="() => ModalDialog.Close()">Close</button>
     </div>
-    <div class="form-group">
-        <label>Nombre:</label>
-        <InputText class="from-control" @bind-Value="tipoPersonaje.nombre" />
-        <ValidationMessage For="@(() => tipoPersonaje.nombre)" />
-    </div>
-   
-    <ValidationSummary />
-
-</EditForm>
-
+</Modal>
